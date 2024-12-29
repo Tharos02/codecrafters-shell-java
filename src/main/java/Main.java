@@ -68,7 +68,7 @@ public class Main {
                     if (Files.isDirectory(Path.of(firstArgument))) {
                         dir = firstArgument;
                     } else {
-                        System.out.println(firstArgument + ": no such file or directory");
+                        System.out.println(command + ": "+ firstArgument + ": No such file or directory");
                     }
                     break;
                 default:

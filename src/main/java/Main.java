@@ -70,6 +70,7 @@ public class Main {
                     } else {
                         System.out.println(firstArgument + ": no such file or directory");
                     }
+                    break;
                 default:
                     path = getPath(command);
                     if (path != null) {

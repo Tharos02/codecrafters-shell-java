@@ -11,7 +11,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
         String dir = Path.of("").toAbsolutePath().toString();
-        String homeDir = System.getProperty("user.home");
+        String homeDir = System.getenv("HOME");
 
         Set<String> availableCommands = Set.of("exit", "echo", "type", "pwd", "cd");
 

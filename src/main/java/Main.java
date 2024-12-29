@@ -49,8 +49,9 @@ public class Main {
                         String path = getPath(firstArgument);
                         if (path != null) {
                             System.out.println(firstArgument + " is " + path);
+                        } else {
+                            System.out.println(firstArgument + ": not found");
                         }
-                        System.out.println(firstArgument + ": not found");
                     }
                     break;
                 default:

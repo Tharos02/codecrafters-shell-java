@@ -11,6 +11,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
         String dir = Path.of("").toAbsolutePath().toString();
+        String homeDir = System.getProperty("user.home");
 
         Set<String> availableCommands = Set.of("exit", "echo", "type", "pwd", "cd");
 
@@ -65,9 +66,16 @@ public class Main {
                     System.out.println(dir);
                     break;
                 case "cd":
+                    if (firstArgument.equals("~")) {
+                        dir = homeDir;
+                        System.out.println("test");
+                        break;
+                    }
+
                     if (!firstArgument.startsWith("/")) {
                         firstArgument = dir + "/" + firstArgument;
                     }
+
                     if (Files.isDirectory(Path.of(firstArgument))) {
                         dir = Path.of(firstArgument).normalize().toString();
                     } else {
@@ -97,6 +105,7 @@ public class Main {
         } while (!input.isEmpty());
         scanner.close();
     }
+
 
     private static String getPath(String parameter) {
         for (String path : System.getenv("PATH").split(":")) {

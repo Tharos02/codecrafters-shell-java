@@ -65,8 +65,11 @@ public class Main {
                     System.out.println(dir);
                     break;
                 case "cd":
+                    if (!firstArgument.startsWith("/")) {
+                        firstArgument = dir + "/" + firstArgument;
+                    }
                     if (Files.isDirectory(Path.of(firstArgument))) {
-                        dir = firstArgument;
+                        dir = Path.of(firstArgument).normalize().toString();
                     } else {
                         System.out.println(command + ": "+ firstArgument + ": No such file or directory");
                     }

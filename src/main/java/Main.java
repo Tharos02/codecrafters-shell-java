@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 
@@ -9,8 +10,9 @@ public class Main {
         System.out.print("$ ");
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
+        String dir = Path.of("").toAbsolutePath().toString();
 
-        Set<String> availableCommands = Set.of("exit", "echo", "type", "pwd");
+        Set<String> availableCommands = Set.of("exit", "echo", "type", "pwd", "cd");
 
         do {
 
@@ -23,6 +25,9 @@ public class Main {
             if (commandWithArgs.length > 1) {
                 arguments.addAll(Arrays.asList(commandWithArgs).subList(1, commandWithArgs.length));
             }
+
+            String firstArgument = arguments.size() > 0 ? arguments.getFirst(): null;
+            String path;
 
             switch (command) {
                 case "exit":
@@ -45,11 +50,10 @@ public class Main {
                     System.out.println();
                     break;
                 case "type":
-                    String firstArgument = arguments.getFirst();
                     if (availableCommands.contains(firstArgument)) {
                         System.out.println(firstArgument + " is a shell builtin");
                     } else {
-                        String path = getPath(firstArgument);
+                        path = getPath(firstArgument);
                         if (path != null) {
                             System.out.println(firstArgument + " is " + path);
                         } else {
@@ -58,10 +62,16 @@ public class Main {
                     }
                     break;
                 case "pwd":
-                    System.out.println(System.getProperty("user.dir"));
+                    System.out.println(dir);
                     break;
+                case "cd":
+                    if (Files.isDirectory(Path.of(firstArgument))) {
+                        dir = firstArgument;
+                    } else {
+                        System.out.println(firstArgument + ": no such file or directory");
+                    }
                 default:
-                    String path = getPath(command);
+                    path = getPath(command);
                     if (path != null) {
                         List<String> fullPath = new ArrayList<>();
 

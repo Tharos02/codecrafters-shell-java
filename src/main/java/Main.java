@@ -10,7 +10,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
 
-        Set<String> availableCommands = Set.of("exit", "echo", "type");
+        Set<String> availableCommands = Set.of("exit", "echo", "type", "pwd");
 
         do {
 
@@ -56,6 +56,9 @@ public class Main {
                             System.out.println(firstArgument + ": not found");
                         }
                     }
+                    break;
+                case "pwd":
+                    System.out.println(System.getProperty("user.dir"));
                     break;
                 default:
                     String path = getPath(command);

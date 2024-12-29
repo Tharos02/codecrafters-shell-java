@@ -1,3 +1,6 @@
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.file.Path;
 import java.util.*;
 
@@ -55,7 +58,18 @@ public class Main {
                     }
                     break;
                 default:
-                    System.out.println(command + ": command not found");
+                    String path = getPath(command);
+                    if (path != null) {
+                        List<String> fullPath = new ArrayList<>();
+
+                        fullPath.add(command);
+                        fullPath.addAll(arguments);
+
+                        Process process = Runtime.getRuntime().exec(fullPath.toArray(new String[0]));
+                        process.getInputStream().transferTo(System.out);
+                    } else {
+                        System.out.println(command + ": command not found");
+                    }
             }
 
 

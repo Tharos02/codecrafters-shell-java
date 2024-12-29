@@ -1,13 +1,12 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws Exception {
         System.out.print("$ ");
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
+
+        Set<String> availableCommands = Set.of("exit", "echo", "type");
 
         do {
 
@@ -23,9 +22,9 @@ public class Main {
 
             switch (command) {
                 case "exit":
-                    char firstArgument = arguments.getFirst().charAt(0);
-                    if (Character.isDigit(firstArgument)) {
-                        System.exit(Integer.parseInt(String.valueOf(firstArgument)));
+                    char firstArgumentChar = arguments.getFirst().charAt(0);
+                    if (Character.isDigit(firstArgumentChar)) {
+                        System.exit(Integer.parseInt(String.valueOf(firstArgumentChar)));
                     } else {
                         System.exit(0);
                     }
@@ -36,8 +35,16 @@ public class Main {
                     }
                     System.out.println();
                     break;
+                case "type":
+                    String firstArgument = arguments.getFirst();
+                    if (availableCommands.contains(firstArgument)) {
+                        System.out.println(firstArgument + " is a shell builtin");
+                    } else {
+                        System.out.println(firstArgument + ": command not found");
+                    }
+                    break;
                 default:
-                    System.out.println(input + ": command not found");
+                    System.out.println(command + ": command not found");
             }
 
 

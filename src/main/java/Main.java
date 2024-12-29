@@ -68,7 +68,6 @@ public class Main {
                 case "cd":
                     if (firstArgument.equals("~")) {
                         dir = homeDir;
-                        System.out.println("test");
                         break;
                     }
 

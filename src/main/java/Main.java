@@ -7,6 +7,17 @@ public class Main {
         String input = scanner.nextLine();
 
         do {
+
+            String [] commands = input.split(" ");
+            if (commands[0].equals("exit")) {
+                if (commands.length > 1 && (Character.isDigit(commands[1].charAt(0)))) {
+                    System.exit(Integer.parseInt(commands[1]));
+                } else {
+                    System.exit(0);
+                }
+
+            }
+
             System.out.println(input + ": command not found");
             System.out.print("$ ");
 
